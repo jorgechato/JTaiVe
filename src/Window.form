@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Window">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <preferredSize width="640" height="400"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="3032" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="North"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="371be" class="javax.swing.JTextField" binding="txtURL">
+            <constraints/>
+            <properties>
+              <preferredSize width="250" height="20"/>
+            </properties>
+          </component>
+          <component id="2927b" class="javax.swing.JButton" binding="btPlus">
+            <constraints/>
+            <properties>
+              <background color="-10132123"/>
+              <borderPainted value="false"/>
+              <contentAreaFilled value="false"/>
+              <defaultCapable value="false"/>
+              <doubleBuffered value="false"/>
+              <focusPainted value="false"/>
+              <focusable value="false"/>
+              <icon value="png/plus.png"/>
+              <inheritsPopupMenu value="true"/>
+              <maximumSize width="0" height="0"/>
+              <minimumSize width="0" height="0"/>
+              <opaque value="false"/>
+              <preferredSize width="20" height="20"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="f6614" binding="scrollPane">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="cf107" binding="rowPanel" layout-manager="FormLayout">
+            <rowspec value="center:d:grow"/>
+            <colspec value="fill:d:grow"/>
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
