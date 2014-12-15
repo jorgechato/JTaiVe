@@ -29,8 +29,17 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     private JButton btDelete;
     private boolean stopped;
     private Window window;
-    private String path;
+    private String path,primaryPath;
+    private URL url;
     private Logger log4j = Logger.getLogger(Rows.class.getName());
+
+    public URL getUrl() {
+        return url;
+    }
+
+    public String getPrimaryPath() {
+        return primaryPath;
+    }
 
     public Rows(Window window){
         try {
@@ -99,7 +108,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
        /* ExecutorService threadPool = Executors.newFixedThreadPool(window.getNumberThreads());
         threadPool.submit(this);*/
 
-        URL url = new URL(window.getUrl().toString());
+        url = new URL(window.getUrl().toString());
         URLConnection urlConnection = url.openConnection();
 
         int fileWeight = urlConnection.getContentLength();
@@ -108,6 +117,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         txtName.setText(fileName);
         txtDownload.setText(fileWeight + " bytes");
 
+        primaryPath = window.getPath();
         path = window.getPath() + File.separator + fileName;
 
         InputStream inputStream = url.openStream();

@@ -24,6 +24,7 @@ public class Window extends Component implements ActionListener{
     private int numberThreads;
     private boolean programmDownload;
     private Timer timer;
+    private int pos;
 
     public boolean isProgrammDownload() {
         return programmDownload;
@@ -90,6 +91,7 @@ public class Window extends Component implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        pos = -1;
         UrlValidator urlValidator = new UrlValidator();
         if (!urlValidator.isValid(txtURL.getText())){
             JOptionPane.showMessageDialog(null, "URL no válida",
@@ -124,8 +126,11 @@ public class Window extends Component implements ActionListener{
                     rows.getPbDownload().setValue((Integer) propertyChangeEvent.getNewValue());
             }
         });
-        rowPanel.add(rows.getPanel1());
-
+        if (pos == -1) {
+            rowPanel.add(rows.getPanel1());
+        }else{
+            rowPanel.add(rows.getPanel1(),pos);
+        }
         rowPanel.updateUI();
         if (programmDownload){
             String txtdate = JOptionPane.showInputDialog(null,"Programa la descarga hh:mm");
@@ -153,10 +158,13 @@ public class Window extends Component implements ActionListener{
         rowPanel.remove(row.getPanel1());
         rowPanel.updateUI();
     }
-//todo reload
-    public void reloadRow(Rows row){
-        deleteRow(row);
 
+    public void reloadRow(Rows row){
+        url = row.getUrl().toString();
+        path = row.getPrimaryPath();
+        pos = rowPanel.getComponentZOrder(row.getPanel1());
+        deleteRow(row);
+        startDownload();
     }
 
     public String getPath() {
