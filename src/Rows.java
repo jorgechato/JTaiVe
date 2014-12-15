@@ -6,9 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 
 /**
@@ -25,10 +30,14 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     private boolean stopped;
     private Window window;
     private String path;
+    private Logger log4j = Logger.getLogger(Rows.class.getName());
 
     public Rows(Window window){
         this.window = window;
         init();
+        /*ExecutorService threadPool = Executors.newFixedThreadPool(numberThreads);
+        threadPool.submit(this);*/
+        //longFile();
     }
 
     public JPanel getPanel1() {
@@ -45,6 +54,25 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         btDelete.addActionListener(this);
 
         path = "";
+    }
+
+    private void longFile(){
+        Logger logger = Logger.getLogger("JTaiVe");
+        FileHandler fh;
+
+        try {
+            fh = new FileHandler("JTaiVe.log",false);
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("Download started");
     }
 
     public void activateDeactivate(boolean activate){
@@ -84,8 +112,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         URLConnection urlConnection = url.openConnection();
 
         int fileWeight = urlConnection.getContentLength();
-        String fileName = url.getFile().replace("/", "");
-        fileName = fileName.replace("%20"," ");
+        String fileName = URLDecoder.decode(url.getFile(),"UTF-8");
         txtName.setText(fileName);
         txtDownload.setText(fileWeight + " bytes");
 
@@ -101,7 +128,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
             fileOutputStream.write(bytes,0,weight);
 
             progress += weight;
-            setProgress((int)(progress*100/fileWeight));
+            setProgress(progress*100/fileWeight);
 
             txtDownload.setText(FileUtils.byteCountToDisplaySize(progress) + " de " + FileUtils.byteCountToDisplaySize(fileWeight));
         }
@@ -125,29 +152,35 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     }
 
     public void delete(){
-        activateDeactivate(true);
         int option = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar el archivo origen y borrarlo de la lista?",
                 "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
 
-        if (option == JOptionPane.CANCEL_OPTION){
-            reload();
+        if (option == JOptionPane.CANCEL_OPTION)
             return;
-        }
+
+        activateDeactivate(true);
 
         if (option == JOptionPane.YES_OPTION){
             new File(path).delete();
         }
-        //todo eliminar de jlist
+        this.getPanel1().setVisible(false);
+        //System.gc();
+        //window.getScrollPane().remove(this.getPanel1());
     }
 
-    //todo reload
+    //todo reload download
     public void reload (){
         activateDeactivate(false);
 
         txtName.setForeground(Color.decode("#000"));
         txtDownload.setForeground(Color.decode("#000"));
 
-
+        /*this.getPanel1().setVisible(false);
+        try {
+            this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }*/
     }
 
     public JProgressBar getPbDownload() {
