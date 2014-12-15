@@ -1,4 +1,7 @@
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
@@ -12,10 +15,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 
 /**
  * Created by jorge on 27/11/14.
@@ -34,11 +33,15 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     private Logger log4j = Logger.getLogger(Rows.class.getName());
 
     public Rows(Window window){
+        try {
+            log4j.addAppender(new FileAppender(new PatternLayout(), "JTaiVe.log", true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.window = window;
         init();
         /*ExecutorService threadPool = Executors.newFixedThreadPool(numberThreads);
         threadPool.submit(this);*/
-        longFile();
     }
 
     public JPanel getPanel1() {
@@ -57,26 +60,6 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         btDelete.addActionListener(this);
 
         path = "";
-    }
-
-    private void longFile(){
-        FileHandler fh;
-
-        try {
-            fh = new FileHandler("JTaiVe.log",false);
-            log4j.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-
-        } catch (SecurityException e) {
-            e.printStackTrace();
-            log4j.warning(e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            log4j.warning(e.getMessage());
-        }
-
-        log4j.info("Download started");
     }
 
     public void activateDeactivate(boolean activate){
@@ -113,6 +96,9 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
 
     @Override
     protected Void doInBackground() throws Exception {
+       /* ExecutorService threadPool = Executors.newFixedThreadPool(window.getNumberThreads());
+        threadPool.submit(this);*/
+
         URL url = new URL(window.getUrl().toString());
         URLConnection urlConnection = url.openConnection();
 
@@ -131,7 +117,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         int weight = 0, progress = 0;
         log4j.info("Descarga iniciada "+ fileName);
         while ((weight = inputStream.read(bytes)) != -1 && !stopped){
-            //Thread.sleep(500);
+            Thread.sleep(500);
             fileOutputStream.write(bytes,0,weight);
 
             progress += weight;
@@ -177,9 +163,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
             log4j.info("Fichero elinimado " + path);
         }
 
-        this.getPanel1().setVisible(false);
-        //System.gc();
-        //window.getScrollPane().remove(this.getPanel1());
+        window.deleteRow(this);
     }
 
     //todo reload download
@@ -189,12 +173,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         txtName.setForeground(Color.decode("#000"));
         txtDownload.setForeground(Color.decode("#000"));
 
-        /*this.getPanel1().setVisible(false);
-        try {
-            this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }*/
+        window.reloadRow(this);
     }
 
     public JProgressBar getPbDownload() {

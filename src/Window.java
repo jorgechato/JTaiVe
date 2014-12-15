@@ -8,6 +8,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 /**
  * Created by jorge on 27/11/14.
@@ -21,6 +22,16 @@ public class Window extends Component implements ActionListener{
     private JTextField txtURL;
     private String path,url;
     private int numberThreads;
+    private boolean programmDownload;
+    private Timer timer;
+
+    public boolean isProgrammDownload() {
+        return programmDownload;
+    }
+
+    public void setProgrammDownload(boolean programmDownload) {
+        this.programmDownload = programmDownload;
+    }
 
     public int getNumberThreads() {
         return numberThreads;
@@ -52,12 +63,11 @@ public class Window extends Component implements ActionListener{
         numberThreads = 1;
         btPlus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        rowPanel.setLayout(new BoxLayout(rowPanel,BoxLayout.Y_AXIS));
+        rowPanel.setLayout(new BoxLayout(rowPanel, BoxLayout.Y_AXIS));
         //listeners
         btPlus.addActionListener(this);
 
         txtURL.setText("http://www.dominiopublico.es/libros/T/Sun_Tzu/Sun%20Tzu%20-%20El%20Arte%20de%20la%20Guerra.pdf");
-        //http://192.168.1.3/test/El%20arte%20de%20la%20guerra.epub
     }
 
     public static void splashScreen(){
@@ -86,6 +96,10 @@ public class Window extends Component implements ActionListener{
                     "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        takeURL(txtURL.getText());
+    }
+
+    public void takeURL(String txtUrl){
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar en ...");
@@ -93,20 +107,15 @@ public class Window extends Component implements ActionListener{
         if (fileChooser.showSaveDialog(this) == JFileChooser.CANCEL_OPTION)
             return;
         path = (fileChooser.getSelectedFile().getAbsolutePath());
-        url = txtURL.getText();
+        url = txtUrl;
 
-        txtURL.setText("http://localhost/test/book-of-vaadin-vaadin7.epub");
-        //http://diskdejorge.myds.me/test/practical%20django%20projects.pdf
+        txtURL.setText("http://www.dominiopublico.es/libros/T/Sun_Tzu/Sun%20Tzu%20-%20El%20Arte%20de%20la%20Guerra.pdf");
+
         startDownload();
     }
-    //http://diskdejorge.myds.me/debian-testing-amd64-DVD-1.iso
-    //http://diskdejorge.myds.me/Seven.mkv
-    //http://diskdejorge.myds.me/Transformers%203%20El%20Lado%20Oscuro%20De%20La%20Luna.avi
 
     public void startDownload(){
         final Rows rows = new Rows(this);
-        /*ExecutorService threadPool = Executors.newFixedThreadPool(getNumberThreads());
-        threadPool.submit(rows);*/
 
         rows.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
@@ -118,7 +127,36 @@ public class Window extends Component implements ActionListener{
         rowPanel.add(rows.getPanel1());
 
         rowPanel.updateUI();
-        rows.execute();
+        if (programmDownload){
+            String txtdate = JOptionPane.showInputDialog(null,"Programa la descarga hh:mm");
+            if (txtdate == null || txtdate.equals(""))
+                return;
+            final String[] date = txtdate.split(":");
+            timer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Calendar calendar = Calendar.getInstance();
+                    if (Integer.parseInt(date[0]) == calendar.get(Calendar.HOUR_OF_DAY) &&
+                            Integer.parseInt(date[1]) == calendar.get(Calendar.MINUTE)){
+                        rows.execute();
+                        timer.stop();
+                    }
+                }
+            });
+            timer.start();
+        }else {
+            rows.execute();
+        }
+    }
+
+    public void deleteRow(Rows row){
+        rowPanel.remove(row.getPanel1());
+        rowPanel.updateUI();
+    }
+//todo reload
+    public void reloadRow(Rows row){
+        deleteRow(row);
+
     }
 
     public String getPath() {

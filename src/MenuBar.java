@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by jorge on 27/11/14.
@@ -11,6 +14,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     private JMenuItem importFile,settings;
     private Window window;
     private JMenu file;
+    private JCheckBoxMenuItem check;
 
     public MenuBar(){
 
@@ -28,12 +32,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
         file = new JMenu("Archivo");
         importFile = new JMenuItem("Importar");
         settings = new JMenuItem("Ajustes");
+        check = new JCheckBoxMenuItem("Programar descarga");
         jmb.add(file);
         file.add(settings);
+        file.add(check);
         file.add(importFile);
 
         importFile.addActionListener(this);
         settings.addActionListener(this);
+        check.addActionListener(this);
         importFile.setCursor(new Cursor(Cursor.HAND_CURSOR));
         settings.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return jmb;
@@ -43,21 +50,37 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource() == settings){
             final Settings settings = new Settings(window);
-            /*JFrame frame = new JFrame();
-        frame.add(new JLabel("Welcome"));
-        frame.setVisible(true);
-        frame.setSize(300,100);
-        window.dispose();*/
             return;
         }
         if (actionEvent.getSource() == importFile){
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Guardar en ...");
+            fileChooser.setDialogTitle("Descargar de fichero");
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             if (fileChooser.showSaveDialog(this) == JFileChooser.CANCEL_OPTION)
                 return;
-            String path = (fileChooser.getSelectedFile().getAbsolutePath());
+
+            readFile((fileChooser.getSelectedFile().getAbsolutePath()));
             return;
+        }
+        if (actionEvent.getSource() == check){
+            if (check.isSelected()){
+                window.setProgrammDownload(true);
+            }
+        }
+    }
+
+    private void readFile(String path) {
+        try{
+            FileInputStream fstream = new FileInputStream(path);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+            String strLine;
+            while ((strLine = br.readLine()) != null)   {
+                window.takeURL(strLine);
+            }
+            br.close();
+            fstream.close();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
     }
 }
