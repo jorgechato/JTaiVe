@@ -8,8 +8,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by jorge on 27/11/14.
@@ -33,7 +31,8 @@ public class Window extends Component implements ActionListener{
     }
 
     public static void main(String[] args) {
-        splashScreen();
+        //todo splash
+        //splashScreen();
         JFrame frame = new JFrame("JTaiVe");
         MenuBar menuBar = new MenuBar();
         Window window = new Window();
@@ -57,7 +56,7 @@ public class Window extends Component implements ActionListener{
         //listeners
         btPlus.addActionListener(this);
 
-        txtURL.setText("http://localhost/test/EL_PLAN_DEL_HE%CC%81ROE_v2.1_ROX.pdf");
+        txtURL.setText("http://www.dominiopublico.es/libros/T/Sun_Tzu/Sun%20Tzu%20-%20El%20Arte%20de%20la%20Guerra.pdf");
         //http://192.168.1.3/test/El%20arte%20de%20la%20guerra.epub
     }
 
@@ -106,8 +105,8 @@ public class Window extends Component implements ActionListener{
 
     public void startDownload(){
         final Rows rows = new Rows(this);
-        ExecutorService threadPool = Executors.newFixedThreadPool(getNumberThreads());
-        threadPool.submit(rows);
+        /*ExecutorService threadPool = Executors.newFixedThreadPool(getNumberThreads());
+        threadPool.submit(rows);*/
 
         rows.addPropertyChangeListener(new PropertyChangeListener() {
             @Override

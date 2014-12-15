@@ -1,4 +1,5 @@
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +38,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
         init();
         /*ExecutorService threadPool = Executors.newFixedThreadPool(numberThreads);
         threadPool.submit(this);*/
-        //longFile();
+        longFile();
     }
 
     public JPanel getPanel1() {
@@ -45,6 +46,8 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     }
 
     public void init(){
+        PropertyConfigurator.configure("log4j.properties");
+
         btStop.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btReload.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -57,22 +60,23 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     }
 
     private void longFile(){
-        Logger logger = Logger.getLogger("JTaiVe");
         FileHandler fh;
 
         try {
             fh = new FileHandler("JTaiVe.log",false);
-            logger.addHandler(fh);
+            log4j.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
 
         } catch (SecurityException e) {
             e.printStackTrace();
+            log4j.warning(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
+            log4j.warning(e.getMessage());
         }
 
-        logger.info("Download started");
+        log4j.info("Download started");
     }
 
     public void activateDeactivate(boolean activate){
@@ -104,6 +108,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
             return;
         }
         activateDeactivate(true);
+        log4j.info("Descarga pausada");
     }
 
     @Override
@@ -113,6 +118,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
 
         int fileWeight = urlConnection.getContentLength();
         String fileName = URLDecoder.decode(url.getFile(),"UTF-8");
+        fileName = fileName.substring(fileName.lastIndexOf("/")+1);
         txtName.setText(fileName);
         txtDownload.setText(fileWeight + " bytes");
 
@@ -123,6 +129,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
 
         byte [] bytes = new byte[2048];
         int weight = 0, progress = 0;
+        log4j.info("Descarga iniciada "+ fileName);
         while ((weight = inputStream.read(bytes)) != -1 && !stopped){
             //Thread.sleep(500);
             fileOutputStream.write(bytes,0,weight);
@@ -141,12 +148,16 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
 
             txtName.setForeground(Color.decode("#F44336"));
             txtDownload.setForeground(Color.decode("#F44336"));
+
+            log4j.info("Descarga Cancelada "+ fileName);
         }else {
             setProgress(100);
 
             txtName.setForeground(Color.decode("#1565C0"));
             txtDownload.setForeground(Color.decode("#1565C0"));
             activateDeactivate(true);
+
+            log4j.info("Descarga finalizada "+ fileName);
         }
         return null;
     }
@@ -159,10 +170,13 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
             return;
 
         activateDeactivate(true);
+        log4j.info("Descarga elinimada");
 
         if (option == JOptionPane.YES_OPTION){
             new File(path).delete();
+            log4j.info("Fichero elinimado " + path);
         }
+
         this.getPanel1().setVisible(false);
         //System.gc();
         //window.getScrollPane().remove(this.getPanel1());

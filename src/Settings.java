@@ -14,6 +14,11 @@ public class Settings implements ActionListener{
 
     public Settings(Window window) {
         this.window = window;
+        JFrame frame = new JFrame("Settings");
+        frame.setContentPane(this.panel1);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
         btSave.addActionListener(this);
     }
 
