@@ -58,7 +58,7 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
     }
 
     public void init(){
-        PropertyConfigurator.configure("log4j.properties");
+        PropertyConfigurator.configure(getClass().getResource("log4j.properties"));
 
         btStop.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btReload.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -105,9 +105,6 @@ public class Rows extends SwingWorker<Void, Integer> implements ActionListener{
 
     @Override
     protected Void doInBackground() throws Exception {
-       /* ExecutorService threadPool = Executors.newFixedThreadPool(window.getNumberThreads());
-        threadPool.submit(this);*/
-
         url = new URL(window.getUrl().toString());
         URLConnection urlConnection = url.openConnection();
 

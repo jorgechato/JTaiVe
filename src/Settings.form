@@ -65,6 +65,7 @@
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <preferredSize width="20" height="26"/>
         </properties>
       </component>
@@ -74,6 +75,7 @@
           <forms/>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <text value="Guardar"/>
         </properties>
       </component>

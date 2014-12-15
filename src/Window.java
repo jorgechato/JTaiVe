@@ -43,8 +43,7 @@ public class Window extends Component implements ActionListener{
     }
 
     public static void main(String[] args) {
-        //todo splash
-        //splashScreen();
+        splashScreen();
         JFrame frame = new JFrame("JTaiVe");
         MenuBar menuBar = new MenuBar();
         Window window = new Window();
