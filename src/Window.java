@@ -9,6 +9,8 @@ import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by jorge on 27/11/14.
@@ -21,10 +23,21 @@ public class Window extends Component implements ActionListener{
     private JPanel rowPanel;
     private JTextField txtURL;
     private String path,url;
-    private int numberThreads;
     private boolean programmDownload;
     private Timer timer;
     private int pos;
+    private int numberOfThreads;
+    private ExecutorService threadPool;
+
+
+    public int getNumberOfThreads() {
+        return numberOfThreads;
+    }
+
+    public void setNumberOfThreads(int numberOfThreads) {
+        threadPool = Executors.newFixedThreadPool(numberOfThreads);
+        this.numberOfThreads = numberOfThreads;
+    }
 
     public boolean isProgrammDownload() {
         return programmDownload;
@@ -32,14 +45,6 @@ public class Window extends Component implements ActionListener{
 
     public void setProgrammDownload(boolean programmDownload) {
         this.programmDownload = programmDownload;
-    }
-
-    public int getNumberThreads() {
-        return numberThreads;
-    }
-
-    public void setNumberThreads(int numberThreads) {
-        this.numberThreads = numberThreads;
     }
 
     public static void main(String[] args) {
@@ -60,7 +65,9 @@ public class Window extends Component implements ActionListener{
     }
 
     public void init(){
-        numberThreads = 1;
+        numberOfThreads = 10;
+        threadPool = Executors.newFixedThreadPool(numberOfThreads);
+
         btPlus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         rowPanel.setLayout(new BoxLayout(rowPanel, BoxLayout.Y_AXIS));
@@ -142,14 +149,14 @@ public class Window extends Component implements ActionListener{
                     Calendar calendar = Calendar.getInstance();
                     if (Integer.parseInt(date[0]) == calendar.get(Calendar.HOUR_OF_DAY) &&
                             Integer.parseInt(date[1]) == calendar.get(Calendar.MINUTE)){
-                        rows.execute();
+                        threadPool.submit(rows);
                         timer.stop();
                     }
                 }
             });
             timer.start();
         }else {
-            rows.execute();
+            threadPool.submit(rows);
         }
     }
 

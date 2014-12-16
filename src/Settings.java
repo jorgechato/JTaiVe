@@ -24,8 +24,9 @@ public class Settings implements ActionListener{
         frame.setVisible(true);
         btSave.addActionListener(this);
 
-        SpinnerNumberModel model1 = new SpinnerNumberModel(1,1,10,1);
+        SpinnerNumberModel model1 = new SpinnerNumberModel(10,1,10,1);
         spinner1.setModel(model1);
+        model1.setValue(window.getNumberOfThreads());
 
         loadLog();
     }
@@ -47,7 +48,6 @@ public class Settings implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        window.setNumberThreads((Integer) spinner1.getValue());
-
+        window.setNumberOfThreads((Integer) spinner1.getValue());
     }
 }
