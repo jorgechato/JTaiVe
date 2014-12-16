@@ -7,16 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39a08153-845c-4515-bb8a-9ce347be4fe6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JTaiVe/Rows.class" afterPath="$PROJECT_DIR$/out/production/JTaiVe/Rows.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JTaiVe/Settings.class" afterPath="$PROJECT_DIR$/out/production/JTaiVe/Settings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JTaiVe/Window$1.class" afterPath="$PROJECT_DIR$/out/production/JTaiVe/Window$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JTaiVe/Window$2.class" afterPath="$PROJECT_DIR$/out/production/JTaiVe/Window$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/JTaiVe/Window.class" afterPath="$PROJECT_DIR$/out/production/JTaiVe/Window.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JTaiVe.log" afterPath="$PROJECT_DIR$/JTaiVe.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Rows.java" afterPath="$PROJECT_DIR$/src/Rows.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Settings.form" afterPath="$PROJECT_DIR$/src/Settings.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Settings.java" afterPath="$PROJECT_DIR$/src/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Window.java" afterPath="$PROJECT_DIR$/src/Window.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JTaiVe.iws" />
@@ -58,8 +49,8 @@
       <file leaf-file-name="Window.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Window.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67955804" vertical-offset="1119" max-vertical-offset="3717">
-              <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.73756903" vertical-offset="1245" max-vertical-offset="3717">
+              <caret line="76" column="118" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="118" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1171#1172#0" expanded="true" />
@@ -533,12 +524,12 @@
       <workItem from="1418634212782" duration="9344000" />
       <workItem from="1418659889924" duration="13738000" />
       <workItem from="1418676309854" duration="3623000" />
-      <workItem from="1418726337496" duration="2247000" />
+      <workItem from="1418726337496" duration="3141000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92749000" />
+    <option name="totallyTimeSpent" value="93643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="0" />
@@ -548,7 +539,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -565,7 +556,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24961948" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1060,8 +1051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Window.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67955804" vertical-offset="1119" max-vertical-offset="3717">
-          <caret line="69" column="8" selection-start-line="69" selection-start-column="8" selection-end-line="69" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.73756903" vertical-offset="1245" max-vertical-offset="3717">
+          <caret line="76" column="118" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="118" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1171#1172#0" expanded="true" />
